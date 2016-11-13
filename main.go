@@ -7,26 +7,26 @@ import (
 	"net/http"
 
 	"encoding/json"
+	"flag"
 	"fmt"
 	"github.com/opentracing/opentracing-go/ext"
 	zipkin "github.com/openzipkin/zipkin-go-opentracing"
 	"math/rand"
-	"strconv"
-	"flag"
 	"os"
+	"strconv"
 	"time"
 )
 
 var (
-	appPort = flag.Int("port", 8090, "configure http port")
-	zipkinApiUrl = flag.String("zurl", "http://localhost:9411/api/v1", "zipkin api url")
+	appPort           = flag.Int("port", 8090, "configure http port")
+	zipkinApiUrl      = flag.String("zurl", "http://localhost:9411/api/v1", "zipkin api url")
 	zipkinEnableDebug = flag.Bool("zdebug", false, "zipkin enable debugging?")
-	appName = flag.String("name", "go-product-service", "service name to display in zipkin")
-	tracer = CreateTracer()
+	appName           = flag.String("name", "go-product-service", "service name to display in zipkin")
+	tracer            = CreateTracer()
 )
 
 const (
-	appHost           = "localhost"
+	appHost = "localhost"
 )
 
 type Product struct {
@@ -38,7 +38,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", indexHandler)
 	router.HandleFunc("/{id}", ProductHandler)
-	log.Fatal(http.ListenAndServe(":" + strconv.Itoa(*appPort), router))
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*appPort), router))
 }
 
 func indexHandler(res http.ResponseWriter, req *http.Request) {
