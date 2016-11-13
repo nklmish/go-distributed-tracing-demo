@@ -14,6 +14,10 @@ var (
 	port = flag.Int("port", 8090, "configure http port")
 )
 
+type Product struct {
+	Name string `json:"name"`
+}
+
 func main() {
 	flag.Parse()
 	router := mux.NewRouter()
@@ -28,7 +32,19 @@ func indexHandler(res http.ResponseWriter, req *http.Request) {
 
 func ProductHandler(res http.ResponseWriter, req *http.Request) {
 	id := mux.Vars(req)["id"]
-	if err := json.NewEncoder(res).Encode(id); err != nil {
+
+	res.Header().Set(
+		"Content-Type",
+		"application/json; charset=UTF-8",
+	)
+
+	products := []Product{
+		{Name: fmt.Sprintf("Product A-%s", id)},
+		{Name: fmt.Sprintf("Product B-%s", id)},
+		{Name: fmt.Sprintf("Product C-%s", id)},
+	}
+
+	if err := json.NewEncoder(res).Encode(products); err != nil {
 		panic(err)
 	}
 }
