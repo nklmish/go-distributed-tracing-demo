@@ -1,5 +1,4 @@
 ## Distributed tracing demo in Golang
-Demo code for my presentation on distributed tracing - get a grasp on your production. 
 
 The sample app contains product-services, which generates bunch of products for a given id. It uses db and analytic service to fetch products.To keep things simpler we simulated those services. 
 
@@ -79,6 +78,7 @@ curl -v http://localhost:8090/1000 | jq .
 ```
 
 ![error](https://cloud.githubusercontent.com/assets/13149921/20249333/9a6954dc-a9f7-11e6-8373-e9f8757622f2.png)
+<br/>
 You can click to find out more about error
 ![error-detail-view](https://cloud.githubusercontent.com/assets/13149921/20249345/db44dbf2-a9f7-11e6-972a-22294b0a2f0b.png)
 
